@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<h3>Ticket: {{data.title}} </h3>
+<div class="divTableRow">
+      <div class="divTableCell">Id # &nbsp;{{data.id}}</div>
+      <div class="divTableCell">Title: &nbsp;{{data.title}}</div>
+      <div class="divTableCell">Description: &nbsp;{{data.description}}</div>
+      <div class="divTableCell">Status: &nbsp;{{data.status}}</div>
+      <div class="divTableCell">Assigned to: &nbsp;{{data.user_assigned}}</div>
+      <div class="divTableCell">Completed by: &nbsp;{{data.completed_by}}</div>
+      <div class="divTableCell">Created by: &nbsp;{{data.created_by}}</div>
+      <div class="divTableCell">Creation date: &nbsp;{{data.time_filled}}</div>
+    </div>
+    <button></button>
+  <a href="/editTicket/{{data.id}}">edit ticket</a>
+{% endblock %}
+
