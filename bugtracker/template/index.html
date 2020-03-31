@@ -1,38 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!-- <style>
-  .divTable {
-    display: table;
-    width: 100%;
-  }
-  .divTableRow {
-    display: table-row;
-  }
-  .divTableHeading {
-    background-color: #eee;
-    display: table-header-group;
-  }
-  .divTableCell,
-  .divTableHead {
-    border: 1px solid #999999;
-    display: table-cell;
-    padding: 3px 10px;
-  }
-  .divTableHeading {
-    background-color: #eee;
-    display: table-header-group;
-    font-weight: bold;
-  }
-  .divTableFoot {
-    background-color: #eee;
-    display: table-footer-group;
-    font-weight: bold;
-  }
-  .divTableBody {
-    display: table-row-group;
-  }
-</style> -->
+
 <style>
 .my-custom-scrollbar {
 position: relative;
@@ -58,7 +27,7 @@ table.Tickets {
 table.Tickets td,
 table.Tickets th {
     border: 1px solid #AAAAAA;
-    padding: 2px 2px;
+    /* padding: 1px 1px; */
 }
 
 table.Tickets tbody td {
@@ -74,7 +43,7 @@ table.Tickets thead {
     background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
     background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
     background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-    border-bottom: 2px solid #444444;
+    border-bottom: 1px solid #444444;
 }
 
 table.Tickets thead th {
@@ -115,16 +84,18 @@ table.Tickets tfoot .links a {
     border-radius: 5px;
 }</style>
 
-	<title>Document</title>
+	<title>BugTracker</title>
 </head>
 <body>
   
 	<!-- <span><a href="/users/{id}">users </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; -->
-	<span><a href="/sortt/">Sort by Status </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-	<span><a href="/sortx/">Sort by Time </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+	<!-- <span><a href="/sortt/">Sort by Status </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+	<span><a href="/sortx/">Sort by Time </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; -->
 	<span><a href="/createTicket/">Create New Ticket</a> </span>
-	{% if data %} 
-	{% for i in data %}
+
+
+  <h2>New Tickets</h2>
+	{% for i in new_tickets %}
 	 
 	<div class="table-wrapper-scroll-y my-custom-scrollbar">
 	<table class="Tickets table table-hover">
@@ -172,14 +143,160 @@ table.Tickets tfoot .links a {
 	</table>
 	</div>
 	{% endfor %}
-	{% endif %}
 	
+  
+  <h2>Tickets In Progress</h2>
+  <container class="assbox" style="border: black;">
+	{% for i in assigned_tickets %}
+	 
+	<div class="table-wrapper-scroll-y my-custom-scrollbar">
+	<table class="Tickets table table-hover">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Title</th>
+				<th class="trtr">Ticket Status</th>
+				<th>User Assigned</th>
+				<th>Completed By</th>
+				<th>Created By</th>
+				<th>Time Created</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				
+			</tr>
+		</tfoot>
+		<tbody>
+			<tr>
+				<td><a href="/detail/{{i.id}}">{{i.id}}</a></td>
+				<td><a href="/detail/{{i.id}}">{{i.title}}</a></td>
+        <td class="trtr">{{i.status}}</td>
+        {% if i.user_assigned %}
+				<td><a href="/user/{{i.user_assigned.id}}">{{i.user_assigned}}</a></td>
+        {% else %}
+        <td><a href="#">{{i.user_assigned}}</a></td>
+        {% endif %}
+
+        {% if i.completed_by %}
+        <td><a href="/user/{{i.completed_by.id}}">{{i.completed_by}}</a></td>
+        {% else %}
+        <td><a href="#">{{i.completed_by}}</a></td>
+        {% endif %}
+
+        {% if i.created_by %}
+        <td><a href="/user/{{i.created_by.id}}">{{i.created_by}}</a></td>
+        <td><a href="#">{{i.created_by}}</a></td>
+        {% endif %}
+				<td>{{i.time_filled}}</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	</div>
+	{% endfor %}
+  </container>
+  
+
+  <h2> Tickets Completed</h2>
+	{% for i in completed_tickets %}
+	 
+	<div class="table-wrapper-scroll-y my-custom-scrollbar">
+	<table class="Tickets table table-hover">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Title</th>
+				<th class="trtr">Ticket Status</th>
+				<th>User Assigned</th>
+				<th>Completed By</th>
+				<th>Created By</th>
+				<th>Time Created</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				
+			</tr>
+		</tfoot>
+		<tbody>
+			<tr>
+				<td><a href="/detail/{{i.id}}">{{i.id}}</a></td>
+				<td><a href="/detail/{{i.id}}">{{i.title}}</a></td>
+        <td class="trtr">{{i.status}}</td>
+        {% if i.user_assigned %}
+				<td><a href="/user/{{i.user_assigned.id}}">{{i.user_assigned}}</a></td>
+        {% else %}
+        <td><a href="#">{{i.user_assigned}}</a></td>
+        {% endif %}
+
+        {% if i.completed_by %}
+        <td><a href="/user/{{i.completed_by.id}}">{{i.completed_by}}</a></td>
+        {% else %}
+        <td><a href="#">{{i.completed_by}}</a></td>
+        {% endif %}
+
+        {% if i.created_by %}
+        <td><a href="/user/{{i.created_by.id}}">{{i.created_by}}</a></td>
+        <td><a href="#">{{i.created_by}}</a></td>
+        {% endif %}
+				<td>{{i.time_filled}}</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	</div>
+	{% endfor %}
+	
+  
+  <h2 style="color: red">Invalid Tickets</h2>
+	{% for i in invalid_tickets %}
+  
+	<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="Tickets table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th class="trtr">Ticket Status</th>
+          <th>User Assigned</th>
+          <th>Completed By</th>
+          <th>Created By</th>
+          <th>Time Created</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr>
+          <td><a style="color:red" href="/detail/{{i.id}}">{{i.id}}</a></td>
+          <td><a style="color:red;text-decoration: line-through;" href="/detail/{{i.id}}">{{i.title}}</a></td>
+          <td class="trtr" style="color:red">{{i.status}}</td>
+          {% if i.user_assigned %}
+          <td><a style="color:red" href="/user/{{i.user_assigned.id}}">{{i.user_assigned}}</a></td>
+          {% else %}
+          <td><a style="color:red" style="color:red" href="#">{{i.user_assigned}}</a></td>
+          {% endif %}
+          
+          {% if i.completed_by %}
+          <td><a style="color:red" href="/user/{{i.completed_by.id}}">{{i.completed_by}}</a></td>
+          {% else %}
+          <td><a style="color:red" href="#">{{i.completed_by}}</a></td>
+          {% endif %}
+          
+          {% if i.created_by %}
+          <td><a style="color:red" href="/user/{{i.created_by.id}}">{{i.created_by}}</a></td>
+          <td><a style="color:red" href="#">{{i.created_by}}</a></td>
+          {% endif %}
+          <td style="color:red">{{i.time_filled}}</td>
+        </tr>
+        
+      </tbody>
+    </table>
+	</div>
+	{% endfor %}
 	{% endblock %}
-
-
-
-
-
-
-
 	

@@ -9,7 +9,7 @@ urlpatterns = [
     path('createTicket/', views.ticket_add),
     path('logout/', views.logoutUser, name="logout"),
     path('editTicket/<int:id>/', views.edit_tick),
-    path('sortt/', views.sortedt, name="sort_status"),
-    path('sortx/', views.sortedx, name="sort_time"),
+    # path('sortt/', views.sortedt, name="sort_status"),
+    # path('sortx/', views.sortedx, name="sort_time"),
     path('user/<int:id>/', views.user_detail_view),
     ]

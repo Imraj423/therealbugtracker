@@ -11,7 +11,16 @@ from django.views.generic.detail import DetailView
 @login_required(login_url='login')
 def home(request):
     items = Ticket.objects.all()
-    return render(request, 'index.html', {'data': items})
+    assigned_tickets = Ticket.objects.filter(status="IN PROGRESS")
+    new_tickets = Ticket.objects.filter(status="NEW")
+    completed_tickets = Ticket.objects.filter(status="DONE")
+    invalid_tickets = Ticket.objects.filter(status="INVALID")
+    return render(request, 'index.html', {'data': items,
+     'assigned_tickets': assigned_tickets,
+     'new_tickets': new_tickets,
+     'completed_tickets': completed_tickets,
+     'invalid_tickets': invalid_tickets})
+
 
 
 @login_required(login_url='login')
@@ -20,16 +29,16 @@ def detail(request, id):
     return render(request, 'detail.html', {'data': item})
 
 
-def sortedx(request):
-    html = "index.html"
-    data = Ticket.objects.all().order_by("-time_filled")
-    return render(request, html, {"data": data})
+# def sortedx(request):
+#     html = "index.html"
+#     data = Ticket.objects.all().order_by("-time_filled")
+#     return render(request, html, {"data": data})
 
 
-def sortedt(request):
-    html = "index.html"
-    data = Ticket.objects.all().order_by("status").reverse()
-    return render(request, html, {"data": data})
+# def sortedt(request):
+#     html = "index.html"
+#     data = Ticket.objects.all().order_by("status").reverse()
+#     return render(request, html, {"data": data})
 
 
 
