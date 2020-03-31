@@ -5,7 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 # from .decorators import allowed_users
 from django.contrib.auth.decorators import login_required
-
+from custom_user.models import CustomUser
+from django.views.generic.detail import DetailView
 
 @login_required(login_url='login')
 def home(request):
@@ -106,3 +107,28 @@ def logoutUser(request):
 # user click btn to claim ticket
 # admin create tik not assigned
 # then edit title des, set status,
+
+@login_required()
+def user_detail_view(request, id):
+    user = None
+    submitted_tickets = None
+    assigned_tickets = None
+    closed_tickets = None
+
+    try:
+        user = CustomUser.objects.get(id=id)
+        submitted_tickets = Ticket.objects.filter(created_by=user)
+        assigned_tickets = Ticket.objects.filter(assigned_to=user)
+        closed_tickets = Ticket.objects.filter(completed_by=user)
+        title = Ticket.objects.get(title=title)
+
+    except Exception as e:
+        print(e)
+    
+    return render(request, 'user_detail.html', {
+        'user': user,
+        'submitted_tickets': submitted_tickets,
+        'assigned_tickets': assigned_tickets,
+        'closed_tickets': closed_tickets
+    })
+#

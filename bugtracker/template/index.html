@@ -118,7 +118,8 @@ table.Tickets tfoot .links a {
 	<title>Document</title>
 </head>
 <body>
-	
+  
+	<!-- <span><a href="/users/{id}">users </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; -->
 	<span><a href="/sortt/">Sort by Status </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 	<span><a href="/sortx/">Sort by Time </a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 	<span><a href="/createTicket/">Create New Ticket</a> </span>
@@ -145,7 +146,7 @@ table.Tickets tfoot .links a {
 		</tfoot>
 		<tbody>
 			<tr>
-				<td>{{i.id}}</td>
+				<td><a href="/user/{{i.id}}">{{i.id}}</a></td>
 				<td><a href="/detail/{{i.id}}">{{i.title}}</a></td>
 				<td class="trtr">{{i.status}}</td>
 				<td>{{i.user_assigned}}</td>

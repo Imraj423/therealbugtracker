@@ -1,0 +1,28 @@
+<h1>{{ user }}'s Profile</h1>
+<div>
+  <h3>Tickets Created </h3>
+  {% for ticket in submitted_tickets %}
+  <p><strong>
+    <a href="/detail/{{ticket.id}}">
+      {{ ticket.title }}
+    </a>
+  </strong></p>
+
+  
+  {% endfor %}
+</div>
+<h3>Tickets Assigned </h3>
+<div>
+{% for ticket in assigned_tickets %}
+  <p>{{ ticket.title }}</p> 
+{% endfor %}
+</div>
+<h3>Tickets Completed</h3>
+<div>
+{% for ticket in closed_tickets %}
+  <p>  {{ ticket.id }} completed by {{ ticket.completed_by }}
+</p> 
+{% endfor %}
+
+</div>
+

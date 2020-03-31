@@ -16,12 +16,6 @@ class EditTicket(forms.ModelForm):
         ]
 
 
-# class Finito(forms.ModelForm):
-#     class Meta:
-#         model = Ticket
-#         fields = [
-#             "status"
-#         ]
 
 
 class NewTicket(forms.Form):
@@ -30,17 +24,3 @@ class NewTicket(forms.Form):
 
 
 
-# class EditTicket(forms.ModelForm):
-#     class Meta:
-#         model = Ticket
-#         fields = [
-#             "title",
-#             "description"
-#         ]
-
-
-# form = EditTicket()
-
-# # Creating a form to change an existing article.
-# ticket = Ticket.objects.get('title')
-# form = EditTicket(instance=ticket)
