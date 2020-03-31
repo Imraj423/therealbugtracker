@@ -146,12 +146,25 @@ table.Tickets tfoot .links a {
 		</tfoot>
 		<tbody>
 			<tr>
-				<td><a href="/user/{{i.id}}">{{i.id}}</a></td>
+				<td><a href="/detail/{{i.id}}">{{i.id}}</a></td>
 				<td><a href="/detail/{{i.id}}">{{i.title}}</a></td>
-				<td class="trtr">{{i.status}}</td>
-				<td>{{i.user_assigned}}</td>
-				<td>{{i.completed_by}}</td>
-				<td>{{i.created_by}}</td>
+        <td class="trtr">{{i.status}}</td>
+        {% if i.user_assigned %}
+				<td><a href="/user/{{i.user_assigned.id}}">{{i.user_assigned}}</a></td>
+        {% else %}
+        <td><a href="#">{{i.user_assigned}}</a></td>
+        {% endif %}
+
+        {% if i.completed_by %}
+        <td><a href="/user/{{i.completed_by.id}}">{{i.completed_by}}</a></td>
+        {% else %}
+        <td><a href="#">{{i.completed_by}}</a></td>
+        {% endif %}
+
+        {% if i.created_by %}
+        <td><a href="/user/{{i.created_by.id}}">{{i.created_by}}</a></td>
+        <td><a href="#">{{i.created_by}}</a></td>
+        {% endif %}
 				<td>{{i.time_filled}}</td>
 			</tr>
 			

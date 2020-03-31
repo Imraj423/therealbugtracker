@@ -10,8 +10,8 @@ from django.views.generic.detail import DetailView
 
 @login_required(login_url='login')
 def home(request):
-    item = Ticket.objects.all()
-    return render(request, 'index.html', {'data': item})
+    items = Ticket.objects.all()
+    return render(request, 'index.html', {'data': items})
 
 
 @login_required(login_url='login')
@@ -118,7 +118,7 @@ def user_detail_view(request, id):
     try:
         user = CustomUser.objects.get(id=id)
         submitted_tickets = Ticket.objects.filter(created_by=user)
-        assigned_tickets = Ticket.objects.filter(assigned_to=user)
+        assigned_tickets = Ticket.objects.filter(user_assigned=user)
         closed_tickets = Ticket.objects.filter(completed_by=user)
         title = Ticket.objects.get(title=title)
 
